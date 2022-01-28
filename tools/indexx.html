@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <img style=" box-shadow: 0px 0px 05px 05px blue; border: 5px solid gray; width: 200px; margin-left: 10px;  height: 200px; border-radius: 50%;" src="./1.png" width="25%" alt="">
+    <img style=" box-shadow: 0px 0px 05px 05px blue; border: 5px solid gray; margin-left: 900px; margin-top: 10px; width: 200px; height: 200px; border-radius: 50%;" src="./1.jpg" width="300px" alt="">
+    <style>
+        html{
+            height: 100%;
+        }
+        body{
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background: linear-gradient(#141e30,#243b55);
+        }
+#d1{
+    box-shadow:  0px 0px 03px 03px blue;
+position: absolute;
+top: 50%;
+right: 15%;
+transform: translate(-50%, -50%);
+width: 300px;
+padding: 50px;
+background: rgba(0, 0, 0, 0.7);
+box-sizing: border-box;
+border-radius:10px ;
+border: 7px solid rgba(0, 0, 0, 0.9);
+height: 400px; 
+
+  margin-top: 8%;
+}
+#btn{
+    width:100%;
+    padding: 10px;
+    background-color: blue;
+}
+    </style>
+    <form> 
+        <div id="d1">
+        <input style=" background: transparent; width: 100%; padding: 10px 0; font-size: 16px; color: #fff; margin-bottom: 10px; border: none; border-bottom: 1px solid #fff; outline: none;" placeholder="img" id="img" type="text" name="">
+        <input style="background: transparent; width: 100%; padding: 10px 0; font-size: 16px; color: #fff; margin-bottom: 10px; border: none; border-bottom: 1px solid #fff; outline: none;" placeholder="name" id="name" type="name" name="">
+        <input style="background: transparent; width: 100%; padding: 10px 0; font-size: 16px; color: #fff; margin-bottom: 10px; border: none; border-bottom: 1px solid #fff; outline: none;" placeholder="lastname" id="lastname" type="text" name="">
+        <input style="background: transparent; width: 100%; padding: 10px 0; font-size: 16px; color: #fff; margin-bottom: 10px; border: none; border-bottom: 1px solid #fff; outline: none;" placeholder="username" id="username" type="Username" name="">
+        <input style=" background: transparent; width: 100%; padding: 10px 0; font-size: 16px; color: #fff; margin-bottom: 20px; border: none; border-bottom: 1px solid #fff; outline: none;" placeholder="password" id="pass" type="password" name="">
+        <input style="border-radius: 20px 20px 20px 20px; box-shadow: 02px 02px 0px 02px gray;" type="submit" id="btn" name=""></div>
+        <p id="errorText" style="display: none; color: #ed5353;"></p>
+        <br/>
+        <br/>
+    </form>
+    <div id="card">
+
+    </div>
+</body>
+<script type="text/javascript">
+    let img = document.getElementsByTagName('img');
+    let i = 0;
+    let len = img.length;
+    let unique;
+    while(len){
+        let oneImg = img[i];
+        oneImg.onclick = () =>{
+            oneImg.style.border = "solid 2px";
+            document.addEventListener('keydown', (event) => {
+        var name = event.key;
+        var code = event.code;
+        if(name === 'Control') {
+            return;
+        }
+        if (code == "Keyc" || code == "KeyC"){
+            var src = oneImg.src;
+            let inputImg = document.getElementById('img');
+            document.getElementById('img').value = src;
+        }
+            },false);
+        }
+        ++i;
+        --len;
+    }
+    document.getElementById("btn").onclick = () =>{
+        event.preventDefault();
+        let doc = document,
+        img = doc.getElementById('img').value,
+        name = doc.getElementById('name').value,
+        lastname = doc.getElementById('lastname').value,
+        username = doc.getElementById('username').value,
+        pass = doc.getElementById('pass').value,
+        card = doc.getElementById("card"),
+        errorText = doc.getElementById('errorText');
+        if (!img.trim() || !name.trim() || !lastname.trim() || !username.trim() || !username.trim() || !pass.trim()){
+            errorText.style.display = "block";
+            errorText.textContent = "barcha maydonlarni to'ldring!";
+            return;
+        }
+        let persone = {
+            'img': img,
+            'name':name,
+            'lastname':lastname,
+            'username':username,
+            'pass':pass,
+            inn : function() {
+                card.innerHTML = `
+                <div style="width: 48%;height: 300px;border: 1px solid white;margin: auto;box-shadow: 5px 5px 5px 5px rgb(38, 218, 241);margin-bottom: auto;margin-left:40px;">
+                <img src="${this.img}" style=" margin:auto;">
+                                    <div style="  widht:100px; margin:10px;  margin-top:-290px;">
+              <button style=" box-shadow:  0px 0px 03px 03px blue; background:gray; color:#fff; height:35px;width:200px;margin-left:400px;margin-top:20px;"> Ismingiz:${this.name},</button><br/>
+             <button style=" box-shadow:  0px 0px 03px 03px blue; background:gray; color:#fff;  height:35px;width:200px;margin-left:400px;margin-top:20px;">   Familiyangiz:${this.lastname},</button><br/>
+             <button style=" box-shadow:  0px 0px 03px 03px blue; background:gray; color:#fff;  height:35px;width:200px;margin-left:400px;margin-top:20px;">   Usernameingiz:${this.username},</button><br/>
+              <button style=" box-shadow:  0px 0px 03px 03px blue; background:gray; color:#fff;  height:35px;width:200px;margin-left:400px;margin-top:20px;">  Parolingiz:${this.pass},</button><br/>
+            </div>
+            </div>`;
+            }
+        }
+        persone.inn();
+        errorText.style.display = "none";
+    }
+</script>
+</html>
